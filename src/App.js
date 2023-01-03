@@ -20,32 +20,34 @@ const App = () => {
 
   const [movies, setMovies] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState('');
+
   const searchMovies = async (title) => {
     const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
 
     setMovies(data.Search);
 
-  }
+  };
 
   useEffect( () =>{
-    searchMovies('Superman');
+    searchMovies(searchTerm);
 
-  }, []);
+  }, [searchTerm]);
 
   return (
     <div className='app'>
-      <h1>Lindol </h1>
+      <h1>MovieFlix </h1>
       <div className='search'>
         <input
           placeholder=' Search for movies'
-          value='Superman'
-          onChange={() => {}}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <img
           src={SearchIcon}
           alt='search'
-          onChange={() => {}}
+          onClick={() => searchMovies(searchTerm)}
         />
       </div>
 
